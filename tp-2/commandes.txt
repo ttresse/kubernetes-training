@@ -1,0 +1,24 @@
+# Start pod for simple webcolor app
+kubectl run simple-webapp-color --image="mmumshad/simple-webapp-color" --port=8080 --env="APP_COLOR=red"
+
+# Get info on all pods start in the cluster
+kubectl get pods -o wide
+
+# Expose port 8080 for a specific pod
+kubectl port-forward simple-webapp-color 8080:8080 --address 0.0.0.0
+
+# Delete pod
+kubectl delete pod simple-webapp-color
+
+## Nginx Deployment Command Line ##
+# Create deployment for nginx image 1.18.0
+kubectl create deployment nginx --image=nginx:1.18.0
+
+# Scale deployment in 2 replicas
+kubectl scale --replicas=2 deployment/nginx
+
+# Change image tags. Kubectl server will handle version changement automatically, by create the new deployment, and remove the last one
+kubectl set image deployment/nginx nginx=nginx
+
+# Clear deployment
+kubectl delete deployment nginx
